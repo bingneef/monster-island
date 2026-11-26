@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/species.gd" id="1"]
+[ext_resource type="Script" path="res://creatures/models/cyclovolt.gd" id="2"]
+[ext_resource type="Texture2D" path="res://creatures/portraits/CycloVolt.png" id="3"]
+
+[resource]
+script = ExtResource("1")
+display_name = "CycloVolt"
+food = "vuurbes"
+model = ExtResource("2")
+portrait = ExtResource("3")
+habitat = "Zonnekaap"
+home = Vector3(36, 0, -7)
+hover_height = 1.01
+shiny_name = "TempestVolt"
+theme = "Keer en deel"
+relic = "Gouden dobbelsteen"
+clue = "Zoek aan de rand van het gele veld."
+relic_position = Vector3(41, 0, -2)

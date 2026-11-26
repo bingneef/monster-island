@@ -1,0 +1,24 @@
+config_version=5
+
+[application]
+config/name="Monster Island"
+config/name_localized={"nl":"Monstereiland"}
+config/icon="res://creatures/portraits/Flamelingo.png"
+boot_splash/image="res://creatures/portraits/Flamelingo.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color(0.14,0.35,0.36,1)
+run/main_scene="res://scenes/island.tscn"
+config/features=PackedStringArray("4.5", "Mobile")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+renderer/rendering_method.web="gl_compatibility"
+anti_aliasing/quality/msaa_3d=1
+environment/defaults/default_clear_color=Color(0.41,0.8,0.92,1)

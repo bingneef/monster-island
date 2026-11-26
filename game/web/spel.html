@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#23595c">
+  <title>Monstereiland</title>
+  $GODOT_HEAD_INCLUDE
+  <style>
+    * { box-sizing: border-box }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #23595c; color: #fff3d7; font-family: system-ui, sans-serif }
+    canvas { display: block; outline: none; touch-action: none }
+    #status { position: fixed; inset: 0; display: grid; place-content: center; justify-items: center; background: radial-gradient(ellipse at 50% 70%, #367777, #193e48); text-align: center }
+    img { width: min(32vw, 156px); height: auto; filter: drop-shadow(0 8px 9px #123d4133) }
+    h1 { font-size: clamp(28px, 5vw, 48px); margin: .35em 0 }
+    p { margin: 0 1em 1.2em }
+    progress { width: min(60vw, 260px); height: 11px; accent-color: #f7c86d }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" tabindex="0" aria-label="Monstereiland">Je browser kan het spel niet tekenen.</canvas>
+  <main id="status" role="status">
+    <img src="$GODOT_SPLASH" alt="">
+    <h1>Monstereiland</h1>
+    <p id="bericht">Het eiland wordt wakker…</p>
+    <progress aria-label="Spel laden"></progress>
+    <noscript>Zet JavaScript aan om te spelen.</noscript>
+  </main>
+  <script src="$GODOT_URL"></script>
+  <script>
+    const config = $GODOT_CONFIG;
+    const meter = document.querySelector('progress');
+    function toonFout(tekst) {
+      document.getElementById('bericht').textContent = tekst;
+      meter.hidden = true;
+    }
+    if (typeof Engine === 'undefined') {
+      toonFout('Het spel kon niet laden. Ververs de pagina.');
+    } else if (Engine.getMissingFeatures({threads: $GODOT_THREADS_ENABLED}).length) {
+      toonFout('Deze browser kan het eiland niet tekenen. Probeer een browser met WebGL 2.');
+    } else {
+      const engine = new Engine(config);
+      engine.startGame({
+        canvas: document.getElementById('canvas'),
+        onProgress(geladen, totaal) {
+          if (totaal > 0) { meter.max = totaal; meter.value = geladen; }
+        }
+      }).then(() => {
+        document.getElementById('status').remove();
+        document.getElementById('canvas').focus();
+      }).catch((fout) => {
+        console.error(fout);
+        toonFout('Het eiland kon niet openen. Ververs de pagina om het nog eens te proberen.');
+      });
+    }
+  </script>
+</body>
+</html>

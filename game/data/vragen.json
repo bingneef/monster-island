@@ -1,0 +1,530 @@
+{
+  "Flamelingo": {
+    "thema": "Plus en min",
+    "namen": [
+      "Pip",
+      "Flicker",
+      "Sunny",
+      "Ruby"
+    ],
+    "grenzen": [
+      [
+        5,
+        4
+      ],
+      [
+        12,
+        9
+      ],
+      [
+        35,
+        25
+      ],
+      [
+        85,
+        48
+      ]
+    ]
+  },
+  "AquaPouch": {
+    "thema": "Dieren",
+    "namen": [
+      "Dew",
+      "Ripple",
+      "Brook",
+      "Goldie"
+    ],
+    "vragen": [
+      [
+        [
+          "Wie heeft een slurf?",
+          "Olifant",
+          "Egel",
+          "Kikker"
+        ],
+        [
+          "Wie maakt honing?",
+          "Bij",
+          "Spin",
+          "Mier"
+        ],
+        [
+          "Wie draagt een huisje?",
+          "Slak",
+          "Mol",
+          "Vos"
+        ],
+        [
+          "Wie spint een web?",
+          "Spin",
+          "Wesp",
+          "Rups"
+        ],
+        [
+          "Welk dier zegt vaak oehoe?",
+          "Uil",
+          "Kraai",
+          "Eend"
+        ],
+        [
+          "Wie heeft zwart-witte strepen?",
+          "Zebra",
+          "Giraf",
+          "IJsbeer"
+        ]
+      ],
+      [
+        [
+          "Wat wordt een rups?",
+          "Een vlinder",
+          "Een bij",
+          "Een libel"
+        ],
+        [
+          "Welk dier is een vogel?",
+          "Pinguïn",
+          "Vleermuis",
+          "Dolfijn"
+        ],
+        [
+          "Wie ademt met kieuwen?",
+          "Zalm",
+          "Bever",
+          "Walvis"
+        ],
+        [
+          "Wie legt eieren?",
+          "Schildpad",
+          "Kat",
+          "Geit"
+        ],
+        [
+          "Wat eet een reuzenpanda vooral?",
+          "Bamboe",
+          "Vis",
+          "Eikels"
+        ],
+        [
+          "Wie voedt haar jong met melk?",
+          "Walvis",
+          "Paling",
+          "Kip"
+        ]
+      ],
+      [
+        [
+          "Welk dier is een zoogdier?",
+          "Dolfijn",
+          "Haai",
+          "Forel"
+        ],
+        [
+          "Wie heeft acht armen?",
+          "Octopus",
+          "Krab",
+          "Zeester"
+        ],
+        [
+          "Wat wordt een kikkervisje?",
+          "Een kikker",
+          "Een paling",
+          "Een karper"
+        ],
+        [
+          "Wie leeft in een kolonie met een koningin?",
+          "Mier",
+          "Vos",
+          "Uil"
+        ],
+        [
+          "Waarom heeft een eend zwemvliezen?",
+          "Om te peddelen",
+          "Om te kauwen",
+          "Om te ruiken"
+        ],
+        [
+          "Wie ademt door de huid én met longen?",
+          "Een kikker",
+          "Een mus",
+          "Een kat"
+        ]
+      ],
+      [
+        [
+          "Welk zoogdier legt eieren?",
+          "Vogelbekdier",
+          "Bever",
+          "Zeehond"
+        ],
+        [
+          "Hoe vindt een vleermuis in het donker een mug?",
+          "Met een echo",
+          "Met zijn staart",
+          "Met licht"
+        ],
+        [
+          "Wie heeft drie harten?",
+          "Octopus",
+          "Giraf",
+          "Krokodil"
+        ],
+        [
+          "Wie is familie van de spin?",
+          "Schorpioen",
+          "Kever",
+          "Duizendpoot"
+        ],
+        [
+          "Welk dier heeft geen botten?",
+          "Inktvis",
+          "Slang",
+          "Pinguïn"
+        ],
+        [
+          "Wie haalt lucht door gaatjes in zijn lijf?",
+          "Sprinkhaan",
+          "Kikker",
+          "Salamander"
+        ],
+        [
+          "Wat voor dier is koraal?",
+          "Een groep poliepen",
+          "Een waterplant",
+          "Een zeeslak"
+        ],
+        [
+          "Waarom rolt een pissebed van sommige soorten zich op?",
+          "Om zich te beschermen",
+          "Om te vliegen",
+          "Om te horen"
+        ]
+      ]
+    ]
+  },
+  "BlazeGlyph": {
+    "thema": "Ruimte",
+    "namen": [
+      "Ash",
+      "Coal",
+      "Cinder",
+      "Sol"
+    ],
+    "vragen": [
+      [
+        [
+          "Op welke planeet wonen wij?",
+          "Aarde",
+          "Mars",
+          "Venus"
+        ],
+        [
+          "Welke ster zie je overdag?",
+          "De zon",
+          "De Poolster",
+          "Sirius"
+        ],
+        [
+          "Wat draait om de aarde?",
+          "De maan",
+          "De zon",
+          "Mars"
+        ],
+        [
+          "Waarmee reis je naar de maan?",
+          "Een raket",
+          "Een boot",
+          "Een trein"
+        ],
+        [
+          "Wat zie je soms als een sikkel aan de hemel?",
+          "De maan",
+          "De zee",
+          "Een wolkenkrabber"
+        ],
+        [
+          "Wie werkt in een ruimteschip?",
+          "Een astronaut",
+          "Een duiker",
+          "Een bakker"
+        ]
+      ],
+      [
+        [
+          "Welke planeet heet de rode planeet?",
+          "Mars",
+          "Venus",
+          "Neptunus"
+        ],
+        [
+          "Welke planeet heeft grote, heldere ringen?",
+          "Saturnus",
+          "Mars",
+          "Aarde"
+        ],
+        [
+          "Waar komt het licht van de maan vandaan?",
+          "De zon",
+          "De zee",
+          "Het ijs"
+        ],
+        [
+          "Wat is de zon?",
+          "Een ster",
+          "Een planeet",
+          "Een maan"
+        ],
+        [
+          "Wie liep als eerste op de maan?",
+          "Neil Armstrong",
+          "Joeri Gagarin",
+          "André Kuipers"
+        ],
+        [
+          "Wat draagt een astronaut buiten zijn schip?",
+          "Een ruimtepak",
+          "Een regenjas",
+          "Een duikbril"
+        ]
+      ],
+      [
+        [
+          "Welke planeet is het grootst?",
+          "Jupiter",
+          "Saturnus",
+          "Uranus"
+        ],
+        [
+          "Wat zorgt voor dag en nacht?",
+          "De aarde draait",
+          "De maan draait",
+          "De zon knippert"
+        ],
+        [
+          "Hoe lang duurt een rondje van de aarde om de zon?",
+          "Een jaar",
+          "Een dag",
+          "Een maand"
+        ],
+        [
+          "Welke planeet staat het dichtst bij de zon?",
+          "Mercurius",
+          "Venus",
+          "Mars"
+        ],
+        [
+          "Welke planeet komt na de aarde vanaf de zon?",
+          "Mars",
+          "Venus",
+          "Jupiter"
+        ],
+        [
+          "Waaruit bestaat de zon vooral?",
+          "Heet gas",
+          "Hete stenen",
+          "Vloeibaar ijzer"
+        ]
+      ],
+      [
+        [
+          "Hoe heet ons sterrenstelsel?",
+          "Melkweg",
+          "Andromeda",
+          "Poolster"
+        ],
+        [
+          "Wat is Pluto?",
+          "Een dwergplaneet",
+          "Een komeet",
+          "Een ster"
+        ],
+        [
+          "Welke planeet staat het verst van de zon?",
+          "Neptunus",
+          "Uranus",
+          "Saturnus"
+        ],
+        [
+          "Wat trekt je terug naar de grond?",
+          "Zwaartekracht",
+          "Zonlicht",
+          "Maanstof"
+        ],
+        [
+          "Waar landt een rover die Mars verkent?",
+          "Op rots en zand",
+          "Op een gaswolk",
+          "Op een zee"
+        ],
+        [
+          "Hoe lang reist licht van de zon naar de aarde?",
+          "Acht minuten",
+          "Acht dagen",
+          "Acht uur"
+        ],
+        [
+          "Wat staat tussen Mars en Jupiter?",
+          "Veel ruimterotsen",
+          "De Poolster",
+          "De maan"
+        ],
+        [
+          "Wat is een lichtjaar?",
+          "Een afstand",
+          "Een kleur",
+          "Een tijdstip"
+        ]
+      ]
+    ]
+  },
+  "CycloVolt": {
+    "thema": "Keer en deel",
+    "namen": [
+      "Zip",
+      "Buzz",
+      "Sparky",
+      "Storm"
+    ],
+    "grenzen": [
+      [
+        3,
+        4
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        9,
+        9
+      ],
+      [
+        12,
+        12
+      ]
+    ]
+  },
+  "SpiralButterfly": {
+    "thema": "Vlaggen",
+    "namen": [
+      "Iris",
+      "Petal",
+      "Clover",
+      "Violet"
+    ],
+    "vlaggen": [
+      [
+        "Nederland",
+        "h",
+        "ae1c28",
+        "ffffff",
+        "21468b"
+      ],
+      [
+        "Frankrijk",
+        "v",
+        "002395",
+        "ffffff",
+        "ed2939"
+      ],
+      [
+        "Japan",
+        "dot",
+        "ffffff",
+        "bc002d"
+      ],
+      [
+        "Duitsland",
+        "h",
+        "171717",
+        "dd0000",
+        "ffce00"
+      ],
+      [
+        "Italië",
+        "v",
+        "009246",
+        "ffffff",
+        "ce2b37"
+      ],
+      [
+        "België",
+        "v",
+        "161616",
+        "fdda24",
+        "ef3340"
+      ],
+      [
+        "Oostenrijk",
+        "h",
+        "ed2939",
+        "ffffff",
+        "ed2939"
+      ],
+      [
+        "Ierland",
+        "v",
+        "169b62",
+        "ffffff",
+        "ff883e"
+      ],
+      [
+        "Polen",
+        "h",
+        "ffffff",
+        "dc143c"
+      ],
+      [
+        "Hongarije",
+        "h",
+        "ce2939",
+        "ffffff",
+        "477050"
+      ],
+      [
+        "Roemenië",
+        "v",
+        "002b7f",
+        "fcd116",
+        "ce1126"
+      ],
+      [
+        "Bulgarije",
+        "h",
+        "ffffff",
+        "00966e",
+        "d62612"
+      ],
+      [
+        "Indonesië",
+        "h",
+        "ce1126",
+        "ffffff"
+      ],
+      [
+        "Estland",
+        "h",
+        "0072ce",
+        "181818",
+        "ffffff"
+      ]
+    ],
+    "groepen": [
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        3,
+        10
+      ],
+      [
+        6,
+        14
+      ]
+    ]
+  }
+}
