@@ -15,10 +15,13 @@ pages = ['''<!doctype html><html lang="nl"><meta charset="utf-8"><meta name="vie
 pages.extend(f'<a href="#{k}">{k}</a>' for k in bank)
 pages.append('</nav></header><main>')
 for monster, entry in bank.items():
-    portrait = (root / "game" / "creatures" / "portraits" / (monster+".png")).read_bytes()
+    portrait = (root / "game" / "creatures" / "portraits" / (entry.get("portret",monster)+".png")).read_bytes()
     image = base64.b64encode(portrait).decode("ascii")
     pages.append(f'<article id="{monster}"><img class="portrait" src="data:image/png;base64,{image}" alt=""><h2>{monster}</h2><p>{entry["thema"]}</p>')
-    for level, name in enumerate(entry["namen"]):
+    names = entry["namen"]
+    source = entry.get("vragenbron", monster)
+    entry = bank[source]
+    for level, name in enumerate(names):
         count = 5 if level == 3 else 3
         pages.append(f'<section><h3>Niveau {level+1} · {name}{" ★" if level == 3 else ""}</h3><small>{count} goede antwoorden</small>')
         if "vragen" in entry:
@@ -38,7 +41,7 @@ for monster, entry in bank.items():
                 pages.append(f'<span class="tile"><i class="flag" style="background:{fill}"></i>{country}</span>')
         else:
             top_a, top_b = entry["grenzen"][level]
-            multiply = monster == 'CycloVolt'
+            multiply = source == 'CycloVolt'
             low = 2 if multiply else 1
             forward, back = ('×','÷') if multiply else ('+','−')
             def pair(a,b):

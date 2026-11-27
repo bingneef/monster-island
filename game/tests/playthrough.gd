@@ -61,6 +61,7 @@ var checkpoint_path := "user://cottage-test-%d.json" % Time.get_ticks_usec()
 
 func start_island() -> void:
 	game = preload("res://scenes/island.tscn").instantiate()
+	game.start_on_ember = false
 	game.checkpoint.path = checkpoint_path
 	root.add_child(game)
 	current_scene = game
@@ -203,6 +204,7 @@ func play() -> void:
 	await collect_remaining()
 	await check_treasures()
 	await check_outings()
+	await check_helpers()
 	await check_beach()
 	await check_cottage()
 	if game.sound.playing:
@@ -442,6 +444,7 @@ func check_cottage() -> void:
 	check(game.finds.found.size()==5,"All treasures survive a restart")
 	check(game.finds.pennants.all(func(flag): return flag.visible),"Cottage pennants return after loading")
 	check(game.outings.rainbow.visible and game.outings.flying,"Rainbow and flying kite survive reopening")
+	check(game.teamwork.notes.count(true)==3 and game.teamwork.delivered==2,"Teamwork rewards survive reopening")
 	check(game.beach.home,"Turtles remember their trip to the sea")
 	check(game.sky_book.album.size()==3,"Star drawings survive a restart")
 	check(game.wonders.stamps.size()==5 and game.wonders.compass.visible,"Discovery passport survives a restart")
@@ -465,9 +468,63 @@ func check_cottage() -> void:
 	start_island()
 	await ticks(2)
 	check(game.hud.counter_text()=="2/20" and party().size()==1 and party()[0].nickname=="Ruby","Original cottage saves keep the same friends")
+	check(game.teamwork.notes.count(true)==0 and game.teamwork.delivered==0,"Older saves can start both team adventures")
 	check(not game.outings.rainbow.visible and game.outings.collected.count(true)==0,"Older saves can discover both outings")
 	check(game.finds.found.is_empty() and game.wonders.stamps.is_empty() and game.sky_book.album.is_empty() and not game.beach.home,"New discoveries start available with an old save")
+	await check_emberflame()
 	DirAccess.remove_absolute(checkpoint_path)
+
+func check_emberflame() -> void:
+	var ports: Array = game.Ember.PORTS
+	game.pads.install(TEST_PAD,false)
+	check(not game.land.accessible(ports[0].lerp(ports[1],0.5)),"The sea separates the two islands")
+	await walk_to(ports[0])
+	await tap_key(KEY_SPACE)
+	check(game.island_id==1 and game.hud.counter_text()=="0/20","Boarded for Emberflame")
+	check(party().all(func(c): return c.position.distance_to(game.player.position)<7),"Companions arrive on the same ferry")
+	for i in range(20,40):
+		var c: Node3D = game.creatures[i]
+		var rank := (i-20)%4+1
+		check(c.level==rank and c.shiny==(rank==4) and c.species.display_name==game.ember.pages[(i-20)/4].display_name,"Habitat species, rank and shiny for "+c.nickname)
+		var cell := Vector2i(roundi(c.home.x*2),roundi(c.home.z*2))
+		var start := Vector2i(roundi(game.player.position.x*2),roundi(game.player.position.z*2))
+		check(not game.grid.get_point_path(start,cell).is_empty(),"Reachable resident "+c.nickname)
+	await walk_to(game.creatures[20].home)
+	await tap_key(KEY_SPACE)
+	await solve_quiz(game.creatures[20])
+	check(not game.ember.eruption_seen,"Volcano discovery starts hidden")
+	await walk_to(game.Ember.CENTER+game.Ember.PEAKS[0]+Vector3(0,0,11))
+	check(game.ember.eruption_seen and not game.ember.eruption_armed,"Approaching Fire Ridge triggers the eruption")
+	check(game.checkpoint.read().outings.get("eruption_seen")==true,"Volcano discovery automatically saved")
+	await tap_key(KEY_TAB)
+	await tap_key(KEY_SHIFT)
+	check(game.guidebook.map_open and game.guidebook.on_page().size()==4,"Emberflame guide and map open")
+	check(game.guidebook.species==game.ember.pages,"Guide only contains Emberflame habitats")
+	await capture("emberflame-kaart")
+	await tap_key(KEY_TAB)
+	for i in game.Ember.SITES.size():
+		await walk_to(game.Ember.CENTER+game.Ember.SITES[i])
+		await tap_key(KEY_SPACE)
+		check(game.Ember.SITE_NAMES[i] in game.ember.discovered,"Interacted with "+game.Ember.SITE_NAMES[i])
+		if i==1:
+			check(game.player.position.y>2,"Climbed the crystal terrace")
+	game.queue_free()
+	await process_frame
+	await process_frame
+	start_island()
+	await ticks(3)
+	check(game.ember.discovered.size()==4,"Four new discoveries survive restart")
+	check(game.ember.eruption_seen,"Volcano discovery survives restart")
+	check(game.island_id==1 and game.hud.counter_text()=="1/20" and game.creatures[20].following,"Emberflame friendships and landing survive restart")
+	game.pads.install(TEST_PAD,false)
+	await walk_to(ports[1])
+	await tap_key(KEY_SPACE)
+	check(game.island_id==0 and game.hud.counter_text()=="2/20" and game.creatures[20].visible,"Return ferry brings the new friend home")
+	await tap_key(KEY_TAB)
+	check(game.guidebook.species==game.SPECIES,"Guide only contains Vareneiland habitats")
+	await tap_key(KEY_SHIFT)
+	await tap_key(KEY_SPACE)
+	check(game.island_id==1 and not game.guidebook.visible and game.creatures[20].following,"Map travel switches island with companions")
 
 func solve_quiz(c: Node3D, offer := -1) -> void:
 	check(game.quiz.visible and not c.friend,"Meeting starts a quiz for "+c.nickname)
@@ -494,7 +551,7 @@ func solve_quiz(c: Node3D, offer := -1) -> void:
 		else:
 			await tap_key(KEY_SPACE)
 	check(not game.quiz.visible and c.friend,"Quiz completed")
-	check(c.nickname in game.checkpoint.read().friends,"Friendship automatically saved")
+	check(c.save_id in game.checkpoint.read().friends,"Friendship automatically saved")
 
 func check_treasures() -> void:
 	for id in 5:
@@ -625,3 +682,59 @@ func check_outings() -> void:
 	await walk_to(out.SPRING+Vector3(0,0,3.2))
 	await frame_habitat()
 	await capture("regenboogbron")
+
+func check_helpers() -> void:
+	var tasks = game.teamwork
+	await walk_to(tasks.POST+Vector3.FORWARD)
+	await tap_key(KEY_SPACE)
+	check(not tasks.carrying and game.hud.cottage_text.contains("vriend"),"Post needs an actual travelling friend")
+	var pip: Node3D = game.creatures[0]
+	var dew: Node3D = game.creatures[1]
+	game.toggle_follow(pip)
+	game.toggle_follow(dew)
+	for i in range(2,5):
+		game.toggle_follow(game.creatures[i])
+	await tap_key(KEY_SPACE)
+	await ticks(10)
+	check(tasks.carrying and tasks.letter.position.distance_to(pip.model.global_position)<0.8,"Pip carries the stamped envelope")
+	check(game.checkpoint.read().outings.teamwork.carrying==true,"Unfinished postal trip is saved")
+	await walk_to(tasks.BOXES[1]+Vector3.BACK)
+	await tap_key(KEY_SPACE)
+	check(tasks.delivered==0 and tasks.carrying,"Wrong address keeps the letter")
+	game.toggle_follow(pip)
+	for i in 2:
+		if i:
+			await walk_to(tasks.POST+Vector3.FORWARD)
+			await tap_key(KEY_SPACE)
+		await walk_to(tasks.BOXES[i]+Vector3(1.3,0,0.7))
+		await tap_key(KEY_SPACE)
+		check(tasks.helper==dew,"Active companion takes the delivery job")
+		for frame in 480:
+			if tasks.near_time>=0.45:
+				break
+			await ticks(1)
+		check(dew.model.position.y>dew.species.hover_height+0.5,"Companion lifts the letter to the high mailbox")
+		if i==0:
+			await capture("vogelpost")
+		await ticks(100)
+		check(tasks.delivered==i+1 and not tasks.carrying and tasks.flags[i].visible,"Bird receives its own letter")
+	for i in [2,0,1]:
+		await walk_to(tasks.BELLS[i]+Vector3.BACK*0.8)
+		await tap_key(KEY_SPACE)
+		if i==2:
+			game.toggle_follow(dew)
+			for j in range(2,5):
+				game.toggle_follow(game.creatures[j])
+			await ticks(60)
+			check(not tasks.notes[i] and not tasks.helper,"Resting friend cannot play a remote echo")
+			game.toggle_follow(dew)
+			await tap_button(JOY_BUTTON_B)
+		for frame in 480:
+			if not tasks.helper:
+				break
+			await ticks(1)
+		check(tasks.notes[i] and tasks.birds[i].visible,"Companion reaches the drum and answers the bell")
+	await frame_habitat(0.40)
+	await capture("echobos")
+	check(game.checkpoint.read().outings.teamwork.delivered==2,"Completed deliveries autosaved")
+	game.toggle_follow(dew)

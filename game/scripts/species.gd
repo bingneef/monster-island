@@ -13,3 +13,4 @@ extends Resource
 @export var relic: String
 @export var clue: String
 @export var relic_position: Vector3
+@export var question_group: String

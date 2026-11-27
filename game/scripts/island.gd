@@ -1,6 +1,10 @@
 extends Node3D
 const S = preload("res://scripts/shapes.gd")
 const Terrain = preload("res://scripts/landscape.gd")
+const Ember = preload("res://scripts/emberflame.gd")
+var ember := Ember.new()
+var island_id := 0
+var start_on_ember := OS.has_feature("editor")
 const Explorer = preload("res://scripts/explorer.gd")
 const HUD = preload("res://scripts/hud.gd")
 const Creature = preload("res://scenes/creature.tscn")
@@ -13,6 +17,7 @@ const SPECIES = [
 ]
 var sky_book := preload("res://scripts/sky_book.gd").new()
 var quiz := preload("res://scripts/quiz.gd").new()
+var teamwork := preload("res://scripts/team_adventures.gd").new()
 var outings := preload("res://scripts/trail_adventures.gd").new()
 var beach := preload("res://scripts/turtle_beach.gd").new()
 var wonders := preload("res://scripts/wonders.gd").new()
@@ -62,14 +67,12 @@ func _ready() -> void:
 	beach.build(land)
 	add_child(outings)
 	outings.build(land)
+	add_child(teamwork)
+	teamwork.build(land)
+	teamwork.milestone.connect(save_teamwork)
 	beach.reached_water.connect(turtles_swim)
-	grid.region = Rect2i(-153,-125,307,251)
-	grid.cell_size = Vector2(0.5,0.5)
-	grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
-	grid.update()
-	for x in range(grid.region.position.x,grid.region.end.x):
-		for z in range(grid.region.position.y,grid.region.end.y):
-			grid.set_point_solid(Vector2i(x,z),not land.accessible(Vector3(x*0.5,0,z*0.5),0.15))
+	ember.build(land)
+	build_navigation(0)
 	add_child(player)
 	player.position = Vector3(-0.6,0,4.7)
 	player.rotation.y = PI
@@ -78,17 +81,12 @@ func _ready() -> void:
 	for resident in offsets.size():
 		for kind in SPECIES.size():
 			var species: Resource = SPECIES[kind]
-			var creature := Creature.instantiate()
-			creature.species = species
-			creature.nickname = quiz.Book.bank[species.display_name].namen[resident]
-			creature.name = creature.nickname
-			creature.level = resident+1
-			creature.shiny = resident==3
-			creature.palette = kind
-			creature.position = species.home+offsets[resident]
-			creature.clock = creatures.size()*1.73
-			add_child(creature)
-			creatures.append(creature)
+			spawn_resident(species,quiz.Book.bank[species.display_name].namen[resident],resident,kind,species.home+offsets[resident])
+	var ember_kinds := ember.residents()
+	for i in ember_kinds.size():
+		var kind: Resource = ember_kinds[i]
+		var entry: Dictionary = quiz.Book.bank[kind.habitat]
+		spawn_resident(kind,entry.namen[i%4],i%4,-1,kind.home,entry.bewaar_ids[i%4])
 	cam.fov = 55
 	cam.near = 0.12
 	add_child(cam)
@@ -107,16 +105,82 @@ func _ready() -> void:
 	guidebook.treasures = finds.found
 	guidebook.stamps = wonders.stamps
 	guidebook.setup(SPECIES,creatures)
+	guidebook.travel_requested.connect(travel_from_map)
+	guidebook.discoveries = ember.discovered
 	guidebook.toggle_requested.connect(toggle_follow)
 	guidebook.close_requested.connect(toggle_book)
 	guidebook.practice_requested.connect(practice_with)
 	hud.camera = cam
-	hud.total = creatures.size()
 	hud.pad = not Input.get_connected_joypads().is_empty()
 	# A click captures the mouse. An uncaptured drag also orbits the camera.
 	add_child(sound)
 	sound.stream = friendship_song()
 	restore_cottage()
+	if "--emberflame" in OS.get_cmdline_user_args() and island_id!=1:
+		disembark(1)
+		hud.cottage_message("Welkom op Emberflame Island!")
+	refresh_island()
+
+func spawn_resident(kind: Resource, nickname: String, rank: int, palette: int, home: Vector3, saved_id := "") -> void:
+	var c := Creature.instantiate()
+	c.species = kind
+	c.nickname = nickname
+	c.save_id = nickname if saved_id.is_empty() else saved_id
+	c.name = nickname
+	c.level = rank+1
+	c.shiny = rank==3
+	c.palette = palette
+	c.position = home
+	c.clock = creatures.size()*1.73
+	add_child(c)
+	creatures.append(c)
+
+func refresh_island() -> void:
+	ember.details.visible = island_id==1
+	hud.total = 0
+	hud.friends = 0
+	for c in creatures:
+		var local := Ember.on_ember(c.home)==(island_id==1)
+		c.visible = local or c.following
+		if local:
+			hud.total += 1
+			hud.friends += int(c.friend)
+
+func build_navigation(destination: int) -> void:
+	grid.region = [Rect2i(-153,-125,337,251),Rect2i(230,-90,220,181)][destination]
+	grid.cell_size = Vector2(0.5,0.5)
+	grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+	grid.update()
+	for x in range(grid.region.position.x,grid.region.end.x):
+		for z in range(grid.region.position.y,grid.region.end.y):
+			grid.set_point_solid(Vector2i(x,z),not land.accessible(Vector3(x*0.5,0,z*0.5),0.15))
+
+func disembark(port: int) -> void:
+	var destination: int = Ember.PORT_ISLAND[port]
+	if destination!=island_id:
+		build_navigation(destination)
+	island_id = destination
+	var inward: Vector3 = Ember.INWARD[port]
+	player.position = Ember.PORTS[port]+inward*(17 if port==0 else 11)
+	yaw = -atan2(inward.x,-inward.z)
+	player.rotation.y = atan2(inward.x,inward.z)
+	walk_heading = inward
+	reversing = false
+	lane_sign = 1
+	velocity_y = 0
+	trail.assign([player.position])
+	for c in creatures:
+		if c.following:
+			c.position = trailing_spot(player.position,c.follow_slot)
+			c.velocity = Vector3.ZERO
+			c.follow_speed = 0
+	camera_focus = player.position+Vector3.UP*1.35
+	move_camera(1)
+	guidebook.island_id = destination
+	guidebook.species = SPECIES if destination==0 else ember.pages
+	guidebook.page = 0
+	guidebook.row = 0
+	refresh_island()
 
 func lighting() -> void:
 	var env := Environment.new()
@@ -253,10 +317,20 @@ func _physics_process(dt: float) -> void:
 		if foot.distance_to(species.home)<13:
 			hud.place = species.habitat
 			break
+	if island_id==1:
+		hud.place = "Emberflame Island"
+		if ember.approach_volcano(foot):
+			hud.cottage_message("Ontdekt! De vuurberg barst uit!" if save_progress() else "Uitbarsting ontdekt! Opslaan lukt niet.")
+		for i in Ember.HOMES.size():
+			if foot.distance_to(Ember.CENTER+Ember.HOMES[i])<13:
+				hud.place = Ember.REGIONS[i]
+				break
 	var spots := following_spots(foot)
 	hud.target = null
 	var nearest := 3.85
 	for creature in creatures:
+		if not creature.visible:
+			continue
 		var goal := foot
 		if creature.following:
 			goal = spots[creature.follow_slot]
@@ -267,6 +341,8 @@ func _physics_process(dt: float) -> void:
 					var waiting: Vector3 = goal-walk_heading*retreat
 					if land.accessible(waiting):
 						goal = waiting
+		if creature==teamwork.helper and creature.following:
+			goal = teamwork.goal
 		creature.step(dt,player.position,follow_route.bind(creature),goal,running)
 		var surface := land.height_at(creature.position)
 		creature.model.position.y += surface
@@ -291,12 +367,17 @@ func _physics_process(dt: float) -> void:
 	if outing!="":
 		hud.target = null
 		hud.wonder_action = outings.prompt(outing)
-	var hand := player.position+Vector3.UP
-	if outings.flying:
-		for c in creatures:
-			if c.following:
-				hand = c.model.global_position
-				break
+	var team_action := teamwork.nearby(foot)
+	if team_action!="":
+		hud.target = null
+		hud.wonder_action = teamwork.prompt(team_action)
+	var carrier: Node3D
+	for c in creatures:
+		if c.following:
+			carrier = c
+			break
+	teamwork.animate(dt,t,foot,carrier)
+	var hand: Vector3 = carrier.model.global_position if carrier else player.position+Vector3.UP
 	outings.animate(dt,t,hand,cam.global_position)
 	finds.animate(t)
 	for kind in SPECIES:
@@ -307,11 +388,34 @@ func _physics_process(dt: float) -> void:
 	hud.at_cottage = foot.distance_to(Terrain.PORCH)<1.65
 	if hud.at_cottage:
 		hud.target = null
+	var port := Ember.nearby_port(foot,island_id)
+	var site := ember.nearby_site(foot) if island_id==1 else -1
+	if island_id==1:
+		ember.animate_sites(t)
+	if site>=0:
+		hud.target = null
+		hud.wonder_action = Ember.SITE_ACTIONS[site]
+	if port>=0:
+		hud.target = null
+		hud.wonder_action = "Vaar naar "+Ember.ISLAND_NAMES[Ember.PORT_ISLAND[Ember.CONNECTION[port]]]
 	if not chord_jump and Input.is_action_just_pressed("offer"):
-		if hud.at_cottage:
+		if port>=0:
+			sail_to(Ember.CONNECTION[port])
+		elif site>=0:
+			var fresh: bool = Ember.SITE_NAMES[site] not in ember.discovered
+			ember.explore(site)
+			if site in [0,1]:
+				wonders.play_melody(foot+Vector3.UP*(ground+1),1.26 if site==1 else 0.84)
+			var message: String = ("Ontdekt! " if fresh else "")+Ember.SITE_NAMES[site]
+			hud.cottage_message(message if not fresh or save_progress() else "Opslaan lukt niet.")
+		elif hud.at_cottage:
 			save_at_cottage()
 		elif hud.at_peak:
 			open_sky()
+		elif team_action!="":
+			var message := teamwork.interact(team_action,carrier,foot)
+			if message!="":
+				hud.cottage_message(message)
 		elif outing!="":
 			var message := outings.interact(outing)
 			hud.cottage_message(message if save_progress() else "Opslaan lukt niet. Probeer het bij het huisje.")
@@ -526,6 +630,14 @@ func friendship_song() -> AudioStreamWAV:
 	audio.data = samples
 	return audio
 
+func travel_from_map() -> void:
+	toggle_book()
+	sail_to(Ember.CONNECTION[island_id])
+
+func sail_to(port: int) -> void:
+	disembark(port)
+	hud.cottage_message("Welkom op "+Ember.ISLAND_NAMES[island_id]+"!" if save_progress() else "Opslaan lukt niet.")
+
 func toggle_book() -> void:
 	if guidebook.visible:
 		guidebook.hide()
@@ -535,6 +647,7 @@ func toggle_book() -> void:
 		previous_mouse_mode = Input.mouse_mode
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		hud.hide()
+		guidebook.eruption_seen = ember.eruption_seen
 		guidebook.explorer = player.position
 		guidebook.open(hud.pad,hud.single_left)
 
@@ -552,6 +665,7 @@ func free_slot() -> int:
 func activate(c: Node3D, recall: bool) -> void:
 	c.follow_slot = FOLLOW_SLOTS[free_slot()]
 	c.following = true
+	c.show()
 	if recall:
 		c.position = trailing_spot(Vector3(player.position.x,0,player.position.z),c.follow_slot)
 	c.follow_speed = 0
@@ -562,6 +676,7 @@ func toggle_follow(c: Node3D) -> void:
 		return
 	if c.following:
 		c.following = false
+		c.visible = Ember.on_ember(c.home)==(island_id==1)
 		c.position = c.home
 		c.velocity = Vector3.ZERO
 		c.follow_speed = 0
@@ -576,14 +691,19 @@ func save_progress() -> bool:
 	var team := []
 	for c in creatures:
 		if c.friend:
-			friends.append(c.nickname)
+			friends.append(c.save_id)
 		if c.following:
-			team.append(c.nickname)
-	return checkpoint.write(friends,team,finds.found,wonders.stamps,sky_book.album,beach.home,outings.snapshot())
+			team.append(c.save_id)
+	var trips := outings.snapshot()
+	trips["island"] = island_id
+	trips["eruption_seen"] = ember.eruption_seen
+	trips["ember_sites"] = ember.discovered
+	trips["teamwork"] = teamwork.snapshot()
+	return checkpoint.write(friends,team,finds.found,wonders.stamps,sky_book.album,beach.home,trips)
 
 func save_at_cottage() -> void:
 	if save_progress():
-		if hud.friends==creatures.size():
+		if hud.friends==hud.total:
 			finds.streamers.restart()
 			sound.play()
 		hud.cottage_message("Slaap lekker! Je spel is bewaard.")
@@ -593,6 +713,8 @@ func save_at_cottage() -> void:
 func restore_cottage() -> void:
 	var data := checkpoint.read()
 	if data.is_empty():
+		if start_on_ember:
+			disembark(1)
 		if checkpoint.read_error:
 			hud.cottage_message("Je bewaarde spel kan niet open.")
 		return
@@ -602,6 +724,13 @@ func restore_cottage() -> void:
 				finds.mark(theme)
 	if data.get("outings") is Dictionary:
 		outings.restore(data.outings)
+		ember.eruption_seen = data.outings.get("eruption_seen")==true
+		if data.outings.get("ember_sites") is Array:
+			for i in Ember.SITE_NAMES.size():
+				if Ember.SITE_NAMES[i] in data.outings.ember_sites:
+					ember.explore(i)
+		if data.outings.get("teamwork") is Dictionary:
+			teamwork.restore(data.outings.teamwork)
 	if data.get("turtles")==true:
 		beach.restore()
 	if data.get("charts") is Array:
@@ -620,11 +749,16 @@ func restore_cottage() -> void:
 		outings.kite.position = player.position+Vector3(2.8,3.5,-1.65)
 	move_camera(1)
 	for c in creatures:
-		if c.nickname in data.friends:
+		if c.save_id in data.friends:
 			c.friend = true
 			hud.friends += 1
-			if c.nickname in data.party and free_slot()!=-1:
+			if c.save_id in data.party and free_slot()!=-1:
 				activate(c,true)
+	if data.get("outings") is Dictionary and data.outings.get("island")==1:
+		disembark(1)
+		hud.cottage_message("Welkom terug op Emberflame Island!")
+		update_pennants(false)
+		return
 	update_pennants(false)
 	hud.cottage_message("Goedemorgen! Welkom thuis.")
 
@@ -656,6 +790,9 @@ func update_pennants(announce: bool) -> void:
 			finds.pennants[i].show()
 			if announce:
 				var message: String = "Een vaantje voor de "+kind.habitat+"!"
-				if hud.friends==creatures.size():
+				if hud.friends==hud.total:
 					message = "Twintig vrienden! Vier het bij je huisje!"
 				hud.cottage_message(message)
+
+func save_teamwork(message: String) -> void:
+	hud.cottage_message(message if save_progress() else "Opslaan lukt niet. Probeer het bij het huisje.")

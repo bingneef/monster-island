@@ -26,7 +26,7 @@ func begin(c: Node3D, using_pad: bool, single: bool) -> void:
 	resident = c
 	pad = using_pad
 	solo = single
-	cards = Book.deck(c.species.display_name,c.level,5 if c.shiny else 3)
+	cards = Book.deck(c.species.question_group if c.species.question_group else c.species.display_name,c.level,5 if c.shiny else 3)
 	index = 0
 	selected = 0
 	missed.clear()
@@ -126,7 +126,11 @@ func _draw() -> void:
 		draw_circle(o+Vector2(51+i*34,408),7,GOLD if i<index else PAPER,true,-1,true)
 	label("Vraag %d van %d" % [index+1,cards.size()],287,55,20,INK,true)
 	label("×",814,50,28,INK)
-	draw_multiline_string(bold,o+Vector2(287,102),cards[index].q,HORIZONTAL_ALIGNMENT_LEFT,545,25,-1,INK)
+	var question: String = cards[index].q
+	var question_size := 22
+	while question_size>14 and bold.get_multiline_string_size(question,HORIZONTAL_ALIGNMENT_LEFT,545,question_size).y>84:
+		question_size -= 1
+	draw_multiline_string(bold,o+Vector2(287,71+bold.get_ascent(question_size)),question,HORIZONTAL_ALIGNMENT_LEFT,545,question_size,-1,INK)
 	for i in 3:
 		var r := row_rect(i)
 		box(r,INK if selected==i else Color("#ebe7d1"),14)

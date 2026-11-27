@@ -2,7 +2,9 @@ extends Control
 
 signal toggle_requested(creature: Node3D)
 signal practice_requested(creature: Node3D)
+signal travel_requested
 signal close_requested
+const Ember = preload("res://scripts/emberflame.gd")
 const CREAM := Color("#fff6df")
 const TEAL := Color("#234d51")
 const MUTED := Color("#526d67")
@@ -11,6 +13,9 @@ const TINTS := [Color("#f4c6a2"),Color("#ade1dc"),Color("#e4b4ac"),Color("#e0dfa
 var map_open := false
 var explorer := Vector3.ZERO
 var stamps: Array = []
+var eruption_seen := false
+var discoveries: Array = []
+var island_id := 0
 var treasures: Array = []
 var species: Array
 var residents: Array
@@ -40,7 +45,7 @@ func open(using_pad: bool, single: bool) -> void:
 	queue_redraw()
 
 func on_page() -> Array:
-	return residents.filter(func(c): return c.species==species[page])
+	return residents.filter(func(c): return c.species.habitat==species[page].habitat)
 
 func navigate() -> void:
 	if Input.is_action_just_pressed("hop"):
@@ -48,6 +53,8 @@ func navigate() -> void:
 		queue_redraw()
 		return
 	if map_open:
+		if Input.is_action_just_pressed("offer"):
+			travel_requested.emit()
 		return
 	if Input.is_action_just_pressed("run"):
 		practice()
@@ -86,7 +93,7 @@ func origin() -> Vector2:
 	return (size-Vector2(856,534))*0.5
 
 func tab_box(i: int) -> Rect2:
-	return Rect2(origin()+Vector2(30+i*103,99),Vector2(94,49))
+	return Rect2(origin()+Vector2(30+i*56,99),Vector2(51,49))
 
 func row_box(i: int) -> Rect2:
 	return Rect2(origin()+Vector2(324,170+i*71),Vector2(502,61))
@@ -105,6 +112,8 @@ func _gui_input(event: InputEvent) -> void:
 			queue_redraw()
 			return
 		if map_open:
+			if travel_box().has_point(event.position):
+				travel_requested.emit()
 			return
 		if practice_rect().has_point(event.position):
 			practice()
@@ -135,7 +144,7 @@ func _draw() -> void:
 	if species.is_empty():
 		return
 	var o := origin()
-	var kind: Resource = species[page]
+	var kind: Resource = on_page()[row].species
 	draw_rect(Rect2(Vector2.ZERO,size),Color(0.035,0.12,0.14,0.59))
 	panel(Rect2(o+Vector2(0,6),Vector2(856,534)),Color("#324a45"),28)
 	panel(Rect2(o,Vector2(856,534)),CREAM,28)
@@ -147,20 +156,30 @@ func _draw() -> void:
 	panel(map_button(),Color("#d9e5cc"),14)
 	var binding := ("Stickklik" if solo else "B") if pad else "Shift"
 	words(binding+(" · Boek" if map_open else " · Kaart"),Vector2(444,55),15,TEAL,true)
+	words(Ember.ISLAND_NAMES[island_id],Vector2(34,85),16,MUTED)
 	if map_open:
 		draw_map()
+		panel(travel_box(),TEAL,14)
+		var travel_key := ("SR" if solo else "A") if pad else "Spatie"
+		words(travel_key+" · Naar "+Ember.ISLAND_NAMES[1-island_id],Vector2(528,499),17,CREAM,true)
 		return
 	for i in species.size():
 		var r := tab_box(i)
 		panel(r,TEAL if i==page else Color("#ebe7d2"),17)
 		draw_texture_rect(species[i].portrait,Rect2(r.get_center()-Vector2(21,21),Vector2(42,42)),false)
-	panel(Rect2(o+Vector2(30,170),Vector2(274,274)),TINTS[page],20)
+	panel(Rect2(o+Vector2(30,170),Vector2(274,274)),TINTS[page%TINTS.size()],20)
 	draw_circle(o+Vector2(167,274),77,Color(1,1,1,0.36),true,-1,true)
 	draw_texture_rect(kind.portrait,Rect2(o+Vector2(104,211),Vector2(126,126)),false)
 	words(kind.display_name,Vector2(48,390),25,TEAL,true)
 	words(kind.habitat,Vector2(49,419),17,TEAL)
-	words(("Gevonden: "+kind.relic) if kind.theme in treasures else kind.clue,Vector2(32,469),15,TEAL,true)
-	words("Schatten   %d / 5" % treasures.size(),Vector2(568,131),17,TEAL,true)
+	if kind.question_group.is_empty():
+		words(("Gevonden: "+kind.relic) if kind.theme in treasures else kind.clue,Vector2(32,469),15,TEAL,true)
+	else:
+		words("Emberflame Island",Vector2(32,469),15,TEAL,true)
+	if island_id==0:
+		words("Schatten   %d / 5" % treasures.size(),Vector2(620,131),17,TEAL,true)
+	else:
+		words("Ontdekt   %d / 5" % (discoveries.size()+int(eruption_seen)),Vector2(620,131),17,TEAL,true)
 	var group := on_page()
 	for i in group.size():
 		var c: Node3D = group[i]
@@ -186,6 +205,9 @@ func _draw() -> void:
 		hint = "Stick  Blader       SR  Kies       −  Dicht" if solo else "Stick  Blader       A  Kies       Menu  Dicht"
 	words(notice if notice!="" else hint,Vector2(33,500),17,TEAL,notice!="")
 
+func travel_box() -> Rect2:
+	return Rect2(origin()+Vector2(509,467),Vector2(317,44))
+
 func map_button() -> Rect2:
 	return Rect2(origin()+Vector2(430,25),Vector2(145,42))
 
@@ -195,6 +217,9 @@ func map_point(p: Vector3) -> Vector2:
 func draw_map() -> void:
 	var o := origin()
 	panel(Rect2(o+Vector2(25,98),Vector2(452,375)),Color("#9bdbd6"),25)
+	if island_id==1:
+		draw_ember_map()
+		return
 	var coast := PackedVector2Array()
 	for j in 80:
 		var a := TAU*j/80
@@ -208,7 +233,7 @@ func draw_map() -> void:
 	draw_circle(hill,32,Color("#8bb76d"),true,-1,true)
 	draw_circle(hill,5,GOLD,true,-1,true)
 	draw_circle(map_point(Vector3(-37,0,-14)),11,Color("#6dbebf"),true,-1,true)
-	for j in species.size():
+	for j in preload("res://scripts/wonders.gd").PLACES.size():
 		var p := map_point(species[j].home)
 		draw_circle(p,15,TEAL,true,-1,true)
 		draw_texture_rect(species[j].portrait,Rect2(p-Vector2(14,14),Vector2(28,28)),false)
@@ -218,7 +243,11 @@ func draw_map() -> void:
 	var beach := map_point(Vector3(-3,0,43))
 	draw_circle(beach,6,Color("#faf3d4"),true,-1,true)
 	words("Schildpadstrand",beach-origin()+Vector2(-50,18),12,TEAL,true)
+	var pier := map_point(Vector3(83,0,0))
+	draw_line(pier-Vector2(19,0),pier,TEAL,5)
+	words("Veerboot",pier-origin()+Vector2(-48,19),12,TEAL,true)
 	var me := map_point(explorer)
+	me.x = minf(me.x,o.x+469)
 	draw_circle(me,8,CREAM,true,-1,true)
 	draw_circle(me,5,Color("#bf5041"),true,-1,true)
 	words("Ontdekplekjes",Vector2(510,132),24,TEAL,true)
@@ -229,3 +258,47 @@ func draw_map() -> void:
 	words("Stempels   %d / 5" % stamps.size(),Vector2(510,382),21,TEAL,true)
 	words("Alle vijf? Kijk dan bij je huisje!",Vector2(510,415),16,TEAL)
 	words("Rood = jij     Goud op de heuvel = sterrenkijker",Vector2(31,501),17,TEAL)
+
+func ember_point(p: Vector3) -> Vector2:
+	return origin()+Vector2(249,282)+Vector2(p.x,p.z)*3.9
+
+func draw_ember_map() -> void:
+	var coast := PackedVector2Array()
+	for j in 48:
+		var a := j*TAU/48
+		var shore := Vector2(sin(a),cos(a))*Ember.RADII*(1+0.027*(sin(3*a+0.6)+0.5*cos(5*a-0.6)))
+		coast.append(ember_point(Vector3(shore.x,0,shore.y)))
+	draw_colored_polygon(coast,Color("#f0cf88"))
+	for j in coast.size():
+		coast[j] = ember_point(Vector3.ZERO).lerp(coast[j],0.95)
+	draw_colored_polygon(coast,Color("#92b968"))
+	var loop := PackedVector2Array([ember_point(Ember.HOMES[3]),ember_point(Vector3(-8,0,18)),ember_point(Ember.SITES[3]),ember_point(Ember.HOMES[4])])
+	draw_polyline(loop,Color("#ede2bd"),1.5,true)
+	words("Gebieden",Vector2(504,140),26,TEAL,true)
+	for j in Ember.REGIONS.size():
+		var p := ember_point(Ember.HOMES[j])
+		draw_line(p,ember_point(Vector3.ZERO),CREAM,3,true)
+		draw_circle(p,24,Color(Ember.COLORS[j]),true,-1,true)
+		draw_string(bold,p+Vector2(-5,6),str(j+1),HORIZONTAL_ALIGNMENT_LEFT,-1,17,TEAL)
+		words("%d   %s" % [j+1,Ember.REGIONS[j]],Vector2(510,172+j*26),19,TEAL,true)
+	if eruption_seen:
+		for peak in Ember.PEAKS:
+			var marker := ember_point(peak)
+			draw_circle(marker,6,TEAL,true,-1,true)
+			draw_circle(marker,4,GOLD,true,-1,true)
+		words("Ontdekt · Vulkaanuitbarsting",Vector2(510,319),19,TEAL,true)
+	else:
+		words("Een gerommel bij Fire Ridge…",Vector2(510,319),17,MUTED)
+	for j in Ember.SITES.size():
+		var found: bool = Ember.SITE_NAMES[j] in discoveries
+		var mark := ember_point(Ember.SITES[j])
+		draw_circle(mark,5,TEAL,true,-1,true)
+		draw_circle(mark,3,GOLD if found else CREAM,true,-1,true)
+		words(("★  " if found else "◇  ")+Ember.SITE_NAMES[j],Vector2(510,348+j*24),16,TEAL,found)
+	var dock := ember_point(Ember.PORTS[1]-Ember.CENTER)
+	draw_line(dock,dock+Vector2(20,0),TEAL,5)
+	words("Veerboot",dock-origin()+Vector2(-9,20),12,TEAL,true)
+	var me := ember_point(explorer-Ember.CENTER)
+	draw_circle(me,7,CREAM,true,-1,true)
+	draw_circle(me,4,Color("#bf5041"),true,-1,true)
+	words("Rood = jij     Goud = ontdekt",Vector2(31,501),17,TEAL)

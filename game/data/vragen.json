@@ -1,530 +1,1157 @@
 {
   "Flamelingo": {
-    "thema": "Plus en min",
-    "namen": [
-      "Pip",
-      "Flicker",
-      "Sunny",
+	"thema": "Plus en min",
+	"namen": [
+	  "Pip",
+	  "Flicker",
+	  "Sunny",
       "Ruby"
-    ],
-    "grenzen": [
-      [
-        5,
-        4
-      ],
-      [
-        12,
-        9
-      ],
-      [
-        35,
-        25
-      ],
-      [
-        85,
-        48
-      ]
-    ]
+	],
+	"grenzen": [
+	  [
+		5,
+		4
+	  ],
+	  [
+		12,
+		9
+	  ],
+	  [
+		35,
+		25
+	  ],
+	  [
+		85,
+		48
+	  ]
+	]
   },
   "AquaPouch": {
-    "thema": "Dieren",
-    "namen": [
-      "Dew",
-      "Ripple",
-      "Brook",
+	"thema": "Dieren",
+	"namen": [
+	  "Dew",
+	  "Ripple",
+	  "Brook",
       "Goldie"
-    ],
-    "vragen": [
-      [
-        [
-          "Wie heeft een slurf?",
-          "Olifant",
-          "Egel",
+	],
+	"vragen": [
+	  [
+		[
+		  "Wie heeft een slurf?",
+		  "Olifant",
+		  "Egel",
           "Kikker"
-        ],
-        [
-          "Wie maakt honing?",
-          "Bij",
-          "Spin",
+		],
+		[
+		  "Wie maakt honing?",
+		  "Bij",
+		  "Spin",
           "Mier"
-        ],
-        [
-          "Wie draagt een huisje?",
-          "Slak",
-          "Mol",
+		],
+		[
+		  "Wie draagt een huisje?",
+		  "Slak",
+		  "Mol",
           "Vos"
-        ],
-        [
-          "Wie spint een web?",
-          "Spin",
-          "Wesp",
+		],
+		[
+		  "Wie spint een web?",
+		  "Spin",
+		  "Wesp",
           "Rups"
-        ],
-        [
-          "Welk dier zegt vaak oehoe?",
-          "Uil",
-          "Kraai",
+		],
+		[
+		  "Welk dier zegt vaak oehoe?",
+		  "Uil",
+		  "Kraai",
           "Eend"
-        ],
-        [
-          "Wie heeft zwart-witte strepen?",
-          "Zebra",
-          "Giraf",
+		],
+		[
+		  "Wie heeft zwart-witte strepen?",
+		  "Zebra",
+		  "Giraf",
           "IJsbeer"
-        ]
-      ],
-      [
-        [
-          "Wat wordt een rups?",
-          "Een vlinder",
-          "Een bij",
+		]
+	  ],
+	  [
+		[
+		  "Wat wordt een rups?",
+		  "Een vlinder",
+		  "Een bij",
           "Een libel"
-        ],
-        [
-          "Welk dier is een vogel?",
-          "Pinguïn",
-          "Vleermuis",
+		],
+		[
+		  "Welk dier is een vogel?",
+		  "Pinguïn",
+		  "Vleermuis",
           "Dolfijn"
-        ],
-        [
-          "Wie ademt met kieuwen?",
-          "Zalm",
-          "Bever",
+		],
+		[
+		  "Wie ademt met kieuwen?",
+		  "Zalm",
+		  "Bever",
           "Walvis"
-        ],
-        [
-          "Wie legt eieren?",
-          "Schildpad",
-          "Kat",
+		],
+		[
+		  "Wie legt eieren?",
+		  "Schildpad",
+		  "Kat",
           "Geit"
-        ],
-        [
-          "Wat eet een reuzenpanda vooral?",
-          "Bamboe",
-          "Vis",
+		],
+		[
+		  "Wat eet een reuzenpanda vooral?",
+		  "Bamboe",
+		  "Vis",
           "Eikels"
-        ],
-        [
-          "Wie voedt haar jong met melk?",
-          "Walvis",
-          "Paling",
+		],
+		[
+		  "Wie voedt haar jong met melk?",
+		  "Walvis",
+		  "Paling",
           "Kip"
-        ]
-      ],
-      [
-        [
-          "Welk dier is een zoogdier?",
-          "Dolfijn",
-          "Haai",
+		]
+	  ],
+	  [
+		[
+		  "Welk dier is een zoogdier?",
+		  "Dolfijn",
+		  "Haai",
           "Forel"
-        ],
-        [
-          "Wie heeft acht armen?",
-          "Octopus",
-          "Krab",
+		],
+		[
+		  "Wie heeft acht armen?",
+		  "Octopus",
+		  "Krab",
           "Zeester"
-        ],
-        [
-          "Wat wordt een kikkervisje?",
-          "Een kikker",
-          "Een paling",
+		],
+		[
+		  "Wat wordt een kikkervisje?",
+		  "Een kikker",
+		  "Een paling",
           "Een karper"
-        ],
-        [
-          "Wie leeft in een kolonie met een koningin?",
-          "Mier",
-          "Vos",
+		],
+		[
+		  "Wie leeft in een kolonie met een koningin?",
+		  "Mier",
+		  "Vos",
           "Uil"
-        ],
-        [
-          "Waarom heeft een eend zwemvliezen?",
-          "Om te peddelen",
-          "Om te kauwen",
+		],
+		[
+		  "Waarom heeft een eend zwemvliezen?",
+		  "Om te peddelen",
+		  "Om te kauwen",
           "Om te ruiken"
-        ],
-        [
-          "Wie ademt door de huid én met longen?",
-          "Een kikker",
-          "Een mus",
+		],
+		[
+		  "Wie ademt door de huid én met longen?",
+		  "Een kikker",
+		  "Een mus",
           "Een kat"
-        ]
-      ],
-      [
-        [
-          "Welk zoogdier legt eieren?",
-          "Vogelbekdier",
-          "Bever",
+		]
+	  ],
+	  [
+		[
+		  "Welk zoogdier legt eieren?",
+		  "Vogelbekdier",
+		  "Bever",
           "Zeehond"
-        ],
-        [
-          "Hoe vindt een vleermuis in het donker een mug?",
-          "Met een echo",
-          "Met zijn staart",
+		],
+		[
+		  "Hoe vindt een vleermuis in het donker een mug?",
+		  "Met een echo",
+		  "Met zijn staart",
           "Met licht"
-        ],
-        [
-          "Wie heeft drie harten?",
-          "Octopus",
-          "Giraf",
+		],
+		[
+		  "Wie heeft drie harten?",
+		  "Octopus",
+		  "Giraf",
           "Krokodil"
-        ],
-        [
-          "Wie is familie van de spin?",
-          "Schorpioen",
-          "Kever",
+		],
+		[
+		  "Wie is familie van de spin?",
+		  "Schorpioen",
+		  "Kever",
           "Duizendpoot"
-        ],
-        [
-          "Welk dier heeft geen botten?",
-          "Inktvis",
-          "Slang",
+		],
+		[
+		  "Welk dier heeft geen botten?",
+		  "Inktvis",
+		  "Slang",
           "Pinguïn"
-        ],
-        [
-          "Wie haalt lucht door gaatjes in zijn lijf?",
-          "Sprinkhaan",
-          "Kikker",
+		],
+		[
+		  "Wie haalt lucht door gaatjes in zijn lijf?",
+		  "Sprinkhaan",
+		  "Kikker",
           "Salamander"
-        ],
-        [
-          "Wat voor dier is koraal?",
-          "Een groep poliepen",
-          "Een waterplant",
+		],
+		[
+		  "Wat voor dier is koraal?",
+		  "Een groep poliepen",
+		  "Een waterplant",
           "Een zeeslak"
-        ],
-        [
-          "Waarom rolt een pissebed van sommige soorten zich op?",
-          "Om zich te beschermen",
-          "Om te vliegen",
+		],
+		[
+		  "Waarom rolt een pissebed van sommige soorten zich op?",
+		  "Om zich te beschermen",
+		  "Om te vliegen",
           "Om te horen"
-        ]
-      ]
-    ]
+		]
+	  ]
+	]
   },
   "BlazeGlyph": {
-    "thema": "Ruimte",
-    "namen": [
-      "Ash",
-      "Coal",
-      "Cinder",
+	"thema": "Ruimte",
+	"namen": [
+	  "Ash",
+	  "Coal",
+	  "Cinder",
       "Sol"
+	],
+	"vragen": [
+	  [
+		[
+		  "Op welke planeet wonen wij?",
+		  "Aarde",
+		  "Mars",
+          "Venus"
+		],
+		[
+		  "Welke ster zie je overdag?",
+		  "De zon",
+		  "De Poolster",
+          "Sirius"
+		],
+		[
+		  "Wat draait om de aarde?",
+		  "De maan",
+		  "De zon",
+          "Mars"
+		],
+		[
+		  "Waarmee reis je naar de maan?",
+		  "Een raket",
+		  "Een boot",
+          "Een trein"
+		],
+		[
+		  "Wat zie je soms als een sikkel aan de hemel?",
+		  "De maan",
+		  "De zee",
+          "Een wolkenkrabber"
+		],
+		[
+		  "Wie werkt in een ruimteschip?",
+		  "Een astronaut",
+		  "Een duiker",
+          "Een bakker"
+		]
+	  ],
+	  [
+		[
+		  "Welke planeet heet de rode planeet?",
+		  "Mars",
+		  "Venus",
+          "Neptunus"
+		],
+		[
+		  "Welke planeet heeft grote, heldere ringen?",
+		  "Saturnus",
+		  "Mars",
+          "Aarde"
+		],
+		[
+		  "Waar komt het licht van de maan vandaan?",
+		  "De zon",
+		  "De zee",
+          "Het ijs"
+		],
+		[
+		  "Wat is de zon?",
+		  "Een ster",
+		  "Een planeet",
+          "Een maan"
+		],
+		[
+		  "Wie liep als eerste op de maan?",
+		  "Neil Armstrong",
+		  "Joeri Gagarin",
+          "André Kuipers"
+		],
+		[
+		  "Wat draagt een astronaut buiten zijn schip?",
+		  "Een ruimtepak",
+		  "Een regenjas",
+          "Een duikbril"
+		]
+	  ],
+	  [
+		[
+		  "Welke planeet is het grootst?",
+		  "Jupiter",
+		  "Saturnus",
+          "Uranus"
+		],
+		[
+		  "Wat zorgt voor dag en nacht?",
+		  "De aarde draait",
+		  "De maan draait",
+          "De zon knippert"
+		],
+		[
+		  "Hoe lang duurt een rondje van de aarde om de zon?",
+		  "Een jaar",
+		  "Een dag",
+          "Een maand"
+		],
+		[
+		  "Welke planeet staat het dichtst bij de zon?",
+		  "Mercurius",
+		  "Venus",
+          "Mars"
+		],
+		[
+		  "Welke planeet komt na de aarde vanaf de zon?",
+		  "Mars",
+		  "Venus",
+          "Jupiter"
+		],
+		[
+		  "Waaruit bestaat de zon vooral?",
+		  "Heet gas",
+		  "Hete stenen",
+          "Vloeibaar ijzer"
+		]
+	  ],
+	  [
+		[
+		  "Hoe heet ons sterrenstelsel?",
+		  "Melkweg",
+		  "Andromeda",
+          "Poolster"
+		],
+		[
+		  "Wat is Pluto?",
+		  "Een dwergplaneet",
+		  "Een komeet",
+          "Een ster"
+		],
+		[
+		  "Welke planeet staat het verst van de zon?",
+		  "Neptunus",
+		  "Uranus",
+          "Saturnus"
+		],
+		[
+		  "Wat trekt je terug naar de grond?",
+		  "Zwaartekracht",
+		  "Zonlicht",
+          "Maanstof"
+		],
+		[
+		  "Waar landt een rover die Mars verkent?",
+		  "Op rots en zand",
+		  "Op een gaswolk",
+          "Op een zee"
+		],
+		[
+		  "Hoe lang reist licht van de zon naar de aarde?",
+		  "Acht minuten",
+		  "Acht dagen",
+          "Acht uur"
+		],
+		[
+		  "Wat staat tussen Mars en Jupiter?",
+		  "Veel ruimterotsen",
+		  "De Poolster",
+          "De maan"
+		],
+		[
+		  "Wat is een lichtjaar?",
+		  "Een afstand",
+		  "Een kleur",
+          "Een tijdstip"
+		]
+	  ]
+	]
+  },
+  "CycloVolt": {
+	"thema": "Keer en deel",
+	"namen": [
+	  "Zip",
+	  "Buzz",
+	  "Sparky",
+      "Storm"
+	],
+	"grenzen": [
+	  [
+		3,
+		4
+	  ],
+	  [
+		5,
+		6
+	  ],
+	  [
+		9,
+		9
+	  ],
+	  [
+		12,
+		12
+	  ]
+	]
+  },
+  "SpiralButterfly": {
+	"thema": "Vlaggen",
+	"namen": [
+	  "Iris",
+	  "Petal",
+	  "Clover",
+      "Violet"
+	],
+	"vlaggen": [
+	  [
+		"Nederland",
+		"h",
+		"ae1c28",
+		"ffffff",
+        "21468b"
+	  ],
+	  [
+		"Frankrijk",
+		"v",
+		"002395",
+		"ffffff",
+        "ed2939"
+	  ],
+	  [
+		"Japan",
+		"dot",
+		"ffffff",
+        "bc002d"
+	  ],
+	  [
+		"Duitsland",
+		"h",
+		"171717",
+		"dd0000",
+        "ffce00"
+	  ],
+	  [
+		"Italië",
+		"v",
+		"009246",
+		"ffffff",
+        "ce2b37"
+	  ],
+	  [
+		"België",
+		"v",
+		"161616",
+		"fdda24",
+        "ef3340"
+	  ],
+	  [
+		"Oostenrijk",
+		"h",
+		"ed2939",
+		"ffffff",
+        "ed2939"
+	  ],
+	  [
+		"Ierland",
+		"v",
+		"169b62",
+		"ffffff",
+        "ff883e"
+	  ],
+	  [
+		"Polen",
+		"h",
+		"ffffff",
+        "dc143c"
+	  ],
+	  [
+		"Hongarije",
+		"h",
+		"ce2939",
+		"ffffff",
+        "477050"
+	  ],
+	  [
+		"Roemenië",
+		"v",
+		"002b7f",
+		"fcd116",
+        "ce1126"
+	  ],
+	  [
+		"Bulgarije",
+		"h",
+		"ffffff",
+		"00966e",
+        "d62612"
+	  ],
+	  [
+		"Indonesië",
+		"h",
+		"ce1126",
+        "ffffff"
+	  ],
+	  [
+		"Estland",
+		"h",
+		"0072ce",
+		"181818",
+        "ffffff"
+	  ]
+	],
+	"groepen": [
+	  [
+		0,
+		4
+	  ],
+	  [
+		1,
+		7
+	  ],
+	  [
+		3,
+		10
+	  ],
+	  [
+		6,
+		14
+	  ]
+	]
+  },
+  "Emberwood Forest": {
+    "thema": "Eten",
+    "namen": [
+      "Sylvendra I",
+      "Sylvendra II",
+      "Sylvendra III",
+      "Sylvendra IV"
+    ],
+    "portret": "emberflame/Sylvendra",
+    "vragen": [
+      [
+        [
+          "Welke vrucht groeit in een tros?",
+          "Druif",
+          "Appel",
+          "Peer"
+        ],
+        [
+          "Waarvan maak je friet?",
+          "Aardappel",
+          "Wortel",
+          "Komkommer"
+        ],
+        [
+          "Waarvan wordt popcorn gemaakt?",
+          "Maïs",
+          "Haver",
+          "Rijst"
+        ]
+      ],
+      [
+        [
+          "Wat maal je voor meel?",
+          "Graan",
+          "Kaas",
+          "Sla"
+        ],
+        [
+          "Welke groente is oranje?",
+          "Wortel",
+          "Spinazie",
+          "Aubergine"
+        ],
+        [
+          "Waarvan wordt boter gekarnd?",
+          "Room",
+          "Appelsap",
+          "Bouillon"
+        ]
+      ],
+      [
+        [
+          "Wat helpt brooddeeg rijzen?",
+          "Gist",
+          "Zout",
+          "Olie"
+        ],
+        [
+          "Welk deel van de plant is een asperge?",
+          "Stengel",
+          "Zaad",
+          "Bloem"
+        ],
+        [
+          "Wat is het hoofdingrediënt van hummus?",
+          "Kikkererwt",
+          "Aardappel",
+          "Rijst"
+        ]
+      ],
+      [
+        [
+          "Welke kaas komt traditioneel van schapenmelk?",
+          "Roquefort",
+          "Goudse boerenkaas",
+          "Emmentaler"
+        ],
+        [
+          "Welke specerij komt van een krokus?",
+          "Saffraan",
+          "Kaneel",
+          "Peper"
+        ],
+        [
+          "Waarvan maak je tahin?",
+          "Sesamzaad",
+          "Pompoenpit",
+          "Hazelnoot"
+        ],
+        [
+          "Welke peulvrucht zit in tempeh van oudsher?",
+          "Sojaboon",
+          "Linze",
+          "Spliterwt"
+        ],
+        [
+          "Welk deel van de kaneelboom gebruik je als specerij?",
+          "Bast",
+          "Wortel",
+          "Vrucht"
+        ]
+      ]
+    ],
+    "soort": "Sylvendra",
+    "bewaar_ids": [
+      "Bladspriet",
+      "Vonkoor",
+      "Stammetje",
+      "Vlamhert"
+    ]
+  },
+  "Fire Ridge": {
+    "thema": "Vulkanen",
+    "namen": [
+      "Voltaris I",
+      "Voltaris II",
+      "Voltaris III",
+      "Voltaris IV"
+    ],
+    "portret": "emberflame/Voltaris",
+    "soort": "Voltaris",
+    "bewaar_ids": [
+      "Koolstekel",
+      "Keiknots",
+      "Lavastaart",
+      "Zonnefeniks"
     ],
     "vragen": [
       [
         [
-          "Op welke planeet wonen wij?",
-          "Aarde",
-          "Mars",
-          "Venus"
+          "Hoe heet gloeiend gesteente dat uit een vulkaan stroomt?",
+          "Lava",
+          "IJs",
+          "Klei"
         ],
         [
-          "Welke ster zie je overdag?",
-          "De zon",
-          "De Poolster",
-          "Sirius"
+          "Wat is het heetst?",
+          "Verse lava",
+          "Rivierzand",
+          "Sneeuw"
         ],
         [
-          "Wat draait om de aarde?",
-          "De maan",
-          "De zon",
-          "Mars"
+          "Wat kan een vulkaan bij een uitbarsting de lucht in blazen?",
+          "As",
+          "Boomwortels",
+          "IJspegels"
         ],
         [
-          "Waarmee reis je naar de maan?",
-          "Een raket",
-          "Een boot",
-          "Een trein"
+          "Wat gebeurt er als lava helemaal afkoelt?",
+          "Ze wordt steen",
+          "Ze wordt hout",
+          "Ze wordt zout"
+        ]
+      ],
+      [
+        [
+          "Hoe heet gesmolten gesteente onder de grond?",
+          "Magma",
+          "Lava",
+          "Grind"
         ],
         [
-          "Wat zie je soms als een sikkel aan de hemel?",
-          "De maan",
-          "De zee",
-          "Een wolkenkrabber"
+          "Hoe heet de komvormige opening boven op een vulkaan?",
+          "Krater",
+          "Duin",
+          "Gletsjer"
         ],
         [
-          "Wie werkt in een ruimteschip?",
-          "Een astronaut",
-          "Een duiker",
+          "Wat kan ontstaan als een vulkaan boven zee uitgroeit?",
+          "Een eiland",
+          "Een ijsberg",
+          "Een zandstorm"
+        ],
+        [
+          "Waarom blijft een laag oude lava hard?",
+          "De lava is gestold",
+          "De lava is gaan koken",
+          "De lava is gaan zweven"
+        ]
+      ],
+      [
+        [
+          "Welk vulkanisch gesteente zit vaak vol gaatjes?",
+          "Puimsteen",
+          "Marmer",
+          "Graniet"
+        ],
+        [
+          "Wat duwt magma soms omhoog wanneer de druk afneemt?",
+          "Uitzettende gasbellen",
+          "Groeiende boomwortels",
+          "Vallende regendruppels"
+        ],
+        [
+          "Hoe heet het kanaal waardoor magma naar de krater stijgt?",
+          "Kraterpijp",
+          "Rivierbedding",
+          "Gletsjerspleet"
+        ],
+        [
+          "Welke lava stroomt het makkelijkst uit over vlak terrein?",
+          "Dunvloeibare lava",
+          "Stroperige lava",
+          "Gestolde lava"
+        ]
+      ],
+      [
+        [
+          "Wat is obsidiaan?",
+          "Vulkanisch glas",
+          "Versteend hout",
+          "Gelaagde klei"
+        ],
+        [
+          "Welke vorm heeft een schildvulkaan?",
+          "Breed met flauwe hellingen",
+          "Smal met rechte wanden",
+          "Een diepe smalle geul"
+        ],
+        [
+          "Hoe heet een grote kom die ontstaat als een vulkaan inzakt?",
+          "Caldera",
+          "Delta",
+          "Moraine"
+        ],
+        [
+          "Wat meet een seismometer bij een vulkaan?",
+          "Trillingen van de grond",
+          "De kleur van de lava",
+          "De dikte van de wolken"
+        ],
+        [
+          "Wat is een pyroclastische stroom?",
+          "Heet gas met as en puin",
+          "Smeltwater met ijs",
+          "Wind met woestijnzand"
+        ],
+        [
+          "Wat gebeurt er vaak met gas in stroperig magma?",
+          "Het ontsnapt moeilijker",
+          "Het verandert in zand",
+          "Het bevriest meteen"
+        ]
+      ]
+    ]
+  },
+  "Ignis Grotto": {
+    "thema": "Geschiedenis",
+    "namen": [
+      "Voltarium I",
+      "Voltarium II",
+      "Voltarium III",
+      "Voltarium IV"
+    ],
+    "portret": "emberflame/Voltarium",
+    "soort": "Voltarium",
+    "bewaar_ids": [
+      "Kwartskever",
+      "Robijnoor",
+      "Oogbol",
+      "Prismavlinder"
+    ],
+    "vragen": [
+      [
+        [
+          "Wie droeg in de middeleeuwen een harnas?",
+          "Een ridder",
+          "Een molenaar",
           "Een bakker"
+        ],
+        [
+          "Waarin woonden veel ridders en edelen?",
+          "In een kasteel",
+          "In een fabriek",
+          "In een station"
+        ],
+        [
+          "Wat gebruikte een schrijver vroeger met inkt?",
+          "Een ganzenveer",
+          "Een toetsenbord",
+          "Een krijtje"
+        ],
+        [
+          "Wat haalden mensen vroeger met een emmer uit een put?",
+          "Water",
+          "Graan",
+          "Wol"
         ]
       ],
       [
         [
-          "Welke planeet heet de rode planeet?",
-          "Mars",
-          "Venus",
-          "Neptunus"
+          "Wat zijn de Drentse hunebedden?",
+          "Oude grafmonumenten",
+          "Romeinse badhuizen",
+          "Middeleeuwse stadspoorten"
         ],
         [
-          "Welke planeet heeft grote, heldere ringen?",
-          "Saturnus",
-          "Mars",
-          "Aarde"
+          "Hoe heet een ambachtsvereniging uit een middeleeuwse stad?",
+          "Gilde",
+          "Legioen",
+          "Waterschap"
         ],
         [
-          "Waar komt het licht van de maan vandaan?",
-          "De zon",
-          "De zee",
-          "Het ijs"
+          "Wie schilderde De Nachtwacht?",
+          "Rembrandt van Rijn",
+          "Vincent van Gogh",
+          "Piet Mondriaan"
         ],
         [
-          "Wat is de zon?",
-          "Een ster",
-          "Een planeet",
-          "Een maan"
-        ],
-        [
-          "Wie liep als eerste op de maan?",
-          "Neil Armstrong",
-          "Joeri Gagarin",
-          "André Kuipers"
-        ],
-        [
-          "Wat draagt een astronaut buiten zijn schip?",
-          "Een ruimtepak",
-          "Een regenjas",
-          "Een duikbril"
+          "Waarvoor bouwden Nederlanders dijken?",
+          "Om water tegen te houden",
+          "Om kolen te delven",
+          "Om schepen te bouwen"
         ]
       ],
       [
         [
-          "Welke planeet is het grootst?",
-          "Jupiter",
-          "Saturnus",
-          "Uranus"
+          "Welke rivier vormde een deel van de Romeinse grens in Nederland?",
+          "De Rijn",
+          "De Amstel",
+          "De Vecht in Overijssel"
         ],
         [
-          "Wat zorgt voor dag en nacht?",
-          "De aarde draait",
-          "De maan draait",
-          "De zon knippert"
+          "Wie leidde de Nederlandse Opstand tegen Filips II?",
+          "Willem van Oranje",
+          "Willem Barentsz",
+          "Jan Steen"
         ],
         [
-          "Hoe lang duurt een rondje van de aarde om de zon?",
-          "Een jaar",
-          "Een dag",
-          "Een maand"
+          "In welke stad schreef Anne Frank in het Achterhuis?",
+          "Amsterdam",
+          "Delft",
+          "Maastricht"
         ],
         [
-          "Welke planeet staat het dichtst bij de zon?",
-          "Mercurius",
-          "Venus",
-          "Mars"
-        ],
-        [
-          "Welke planeet komt na de aarde vanaf de zon?",
-          "Mars",
-          "Venus",
-          "Jupiter"
-        ],
-        [
-          "Waaruit bestaat de zon vooral?",
-          "Heet gas",
-          "Hete stenen",
-          "Vloeibaar ijzer"
+          "Wat was de Hanze?",
+          "Een handelsverbond van steden",
+          "Een kloosterorde",
+          "Een koninklijke familie"
         ]
       ],
       [
         [
-          "Hoe heet ons sterrenstelsel?",
-          "Melkweg",
-          "Andromeda",
-          "Poolster"
+          "Wat werd de Zuiderzee na de aanleg van de Afsluitdijk?",
+          "Het IJsselmeer",
+          "De Waddenzee",
+          "De Oosterschelde"
         ],
         [
-          "Wat is Pluto?",
-          "Een dwergplaneet",
-          "Een komeet",
-          "Een ster"
+          "Welke vrede maakte in 1648 een einde aan de Tachtigjarige Oorlog?",
+          "Vrede van Münster",
+          "Vrede van Utrecht",
+          "Vrede van Versailles"
         ],
         [
-          "Welke planeet staat het verst van de zon?",
-          "Neptunus",
-          "Uranus",
-          "Saturnus"
+          "Welke gebeurtenis leidde tot de aanleg van de Deltawerken?",
+          "De Watersnoodramp van 1953",
+          "De Franse Tijd",
+          "De Slag bij Nieuwpoort"
         ],
         [
-          "Wat trekt je terug naar de grond?",
-          "Zwaartekracht",
-          "Zonlicht",
-          "Maanstof"
+          "Wie speelde een hoofdrol bij de grondwetsherziening van 1848?",
+          "Johan Rudolf Thorbecke",
+          "Hugo de Groot",
+          "Michiel de Ruyter"
         ],
         [
-          "Waar landt een rover die Mars verkent?",
-          "Op rots en zand",
-          "Op een gaswolk",
-          "Op een zee"
+          "Wat kregen vrouwen in Nederland in 1919?",
+          "Actief kiesrecht",
+          "Het eerste paspoort",
+          "Een eigen provincie"
         ],
         [
-          "Hoe lang reist licht van de zon naar de aarde?",
-          "Acht minuten",
-          "Acht dagen",
-          "Acht uur"
-        ],
-        [
-          "Wat staat tussen Mars en Jupiter?",
-          "Veel ruimterotsen",
-          "De Poolster",
-          "De maan"
-        ],
-        [
-          "Wat is een lichtjaar?",
-          "Een afstand",
-          "Een kleur",
-          "Een tijdstip"
+          "Hoe heet de Romeinse grens met forten en wachttorens?",
+          "Limes",
+          "Forum",
+          "Aquaduct"
         ]
       ]
     ]
   },
-  "CycloVolt": {
-    "thema": "Keer en deel",
+  "Sunflame Shores": {
+    "thema": "Aardrijkskunde",
     "namen": [
-      "Zip",
-      "Buzz",
-      "Sparky",
-      "Storm"
+      "Aurelon I",
+      "Aurelon II",
+      "Aurelon III",
+      "Aurelon IV"
     ],
-    "grenzen": [
+    "portret": "emberflame/Aurelon",
+    "soort": "Aurelon",
+    "bewaar_ids": [
+      "Rifschild",
+      "Golfdraak",
+      "Zoutbek",
+      "Vlamkrab"
+    ],
+    "vragen": [
       [
-        3,
-        4
+        [
+          "Aan welke zee ligt de Nederlandse westkust?",
+          "Noordzee",
+          "Middellandse Zee",
+          "Zwarte Zee"
+        ],
+        [
+          "Wat is een eiland?",
+          "Land met water eromheen",
+          "Water met land eromheen",
+          "Een hoge bergtop"
+        ],
+        [
+          "Welk land grenst aan Nederland?",
+          "België",
+          "Spanje",
+          "Italië"
+        ],
+        [
+          "Welke stad is de hoofdstad van Frankrijk?",
+          "Parijs",
+          "Lyon",
+          "Nice"
+        ]
       ],
       [
-        5,
-        6
+        [
+          "Op welk werelddeel ligt Egypte?",
+          "Afrika",
+          "Europa",
+          "Zuid-Amerika"
+        ],
+        [
+          "In welke provincie ligt Leeuwarden?",
+          "Friesland",
+          "Drenthe",
+          "Zeeland"
+        ],
+        [
+          "Welke rivier stroomt door Parijs?",
+          "Seine",
+          "Donau",
+          "Maas"
+        ],
+        [
+          "Wat laat de legenda van een kaart zien?",
+          "Wat de tekens betekenen",
+          "Wie er in een stad woont",
+          "Hoe laat de zon opkomt"
+        ]
       ],
       [
-        9,
-        9
+        [
+          "Welke bergketen ligt tussen Frankrijk en Spanje?",
+          "Pyreneeën",
+          "Alpen",
+          "Karpaten"
+        ],
+        [
+          "Welk Waddeneiland ligt het verst naar het westen van deze drie?",
+          "Texel",
+          "Ameland",
+          "Terschelling"
+        ],
+        [
+          "In welk land ligt de stad Porto?",
+          "Portugal",
+          "Italië",
+          "Kroatië"
+        ],
+        [
+          "Welke oceaan ligt tussen Afrika en Zuid-Amerika?",
+          "Atlantische Oceaan",
+          "Stille Oceaan",
+          "Indische Oceaan"
+        ]
       ],
       [
-        12,
-        12
+        [
+          "Welke zeestraat ligt tussen Spanje en Marokko?",
+          "Straat van Gibraltar",
+          "Straat van Dover",
+          "Bosporus"
+        ],
+        [
+          "In welke zee mondt de Donau uit?",
+          "Zwarte Zee",
+          "Oostzee",
+          "Adriatische Zee"
+        ],
+        [
+          "Welke Europese hoofdstad ligt aan de Taag?",
+          "Lissabon",
+          "Madrid",
+          "Athene"
+        ],
+        [
+          "Welke twee landen delen het Titicacameer?",
+          "Peru en Bolivia",
+          "Brazilië en Uruguay",
+          "Chili en Argentinië"
+        ],
+        [
+          "Welke denkbeeldige lijn scheidt het noordelijk en zuidelijk halfrond?",
+          "Evenaar",
+          "Nulmeridiaan",
+          "Poolcirkel"
+        ],
+        [
+          "Hoe heet het gebied waaruit water naar één rivier afstroomt?",
+          "Stroomgebied",
+          "Hoogvlakte",
+          "Landengte"
+        ]
       ]
     ]
   },
-  "SpiralButterfly": {
-    "thema": "Vlaggen",
+  "Flarefell Marsh": {
+    "thema": "Sport",
     "namen": [
-      "Iris",
-      "Petal",
-      "Clover",
-      "Violet"
+      "Gyralune I",
+      "Gyralune II",
+      "Gyralune III",
+      "Gyralune IV"
     ],
-    "vlaggen": [
+    "portret": "emberflame/Gyralune",
+    "vragen": [
       [
-        "Nederland",
-        "h",
-        "ae1c28",
-        "ffffff",
-        "21468b"
+        [
+          "Waarmee sla je een tennisbal?",
+          "Racket",
+          "Knuppel",
+          "Hockeystick"
+        ],
+        [
+          "Op welke ondergrond rijden schaatsers?",
+          "IJs",
+          "Zand",
+          "Gras"
+        ],
+        [
+          "Welke speler mag in het eigen strafschopgebied de bal pakken?",
+          "Keeper",
+          "Spits",
+          "Rechtsback"
+        ]
       ],
       [
-        "Frankrijk",
-        "v",
-        "002395",
-        "ffffff",
-        "ed2939"
+        [
+          "Bij welke stad hoort Ajax?",
+          "Amsterdam",
+          "Rotterdam",
+          "Eindhoven"
+        ],
+        [
+          "Welke kleur heeft een gewone tennisbal meestal?",
+          "Geel",
+          "Blauw",
+          "Zwart"
+        ],
+        [
+          "Hoeveel ijzers zitten er onder één norenschaats?",
+          "Eén",
+          "Twee",
+          "Vier"
+        ]
       ],
       [
-        "Japan",
-        "dot",
-        "ffffff",
-        "bc002d"
+        [
+          "Hoe heet nul bij tennis?",
+          "Love",
+          "Let",
+          "Ace"
+        ],
+        [
+          "Welke club speelt thuis in De Kuip?",
+          "Feyenoord",
+          "PSV",
+          "FC Utrecht"
+        ],
+        [
+          "Hoe lang is een ronde op een standaard langebaan?",
+          "400 meter",
+          "200 meter",
+          "800 meter"
+        ]
       ],
       [
-        "Duitsland",
-        "h",
-        "171717",
-        "dd0000",
-        "ffce00"
-      ],
-      [
-        "Italië",
-        "v",
-        "009246",
-        "ffffff",
-        "ce2b37"
-      ],
-      [
-        "België",
-        "v",
-        "161616",
-        "fdda24",
-        "ef3340"
-      ],
-      [
-        "Oostenrijk",
-        "h",
-        "ed2939",
-        "ffffff",
-        "ed2939"
-      ],
-      [
-        "Ierland",
-        "v",
-        "169b62",
-        "ffffff",
-        "ff883e"
-      ],
-      [
-        "Polen",
-        "h",
-        "ffffff",
-        "dc143c"
-      ],
-      [
-        "Hongarije",
-        "h",
-        "ce2939",
-        "ffffff",
-        "477050"
-      ],
-      [
-        "Roemenië",
-        "v",
-        "002b7f",
-        "fcd116",
-        "ce1126"
-      ],
-      [
-        "Bulgarije",
-        "h",
-        "ffffff",
-        "00966e",
-        "d62612"
-      ],
-      [
-        "Indonesië",
-        "h",
-        "ce1126",
-        "ffffff"
-      ],
-      [
-        "Estland",
-        "h",
-        "0072ce",
-        "181818",
-        "ffffff"
+        [
+          "Hoeveel punten heb je bij tennis na deuce achter elkaar nodig om de game te winnen?",
+          "Twee",
+          "Drie",
+          "Vier"
+        ],
+        [
+          "Welke stad is start en finish van de Elfstedentocht?",
+          "Leeuwarden",
+          "Sneek",
+          "Dokkum"
+        ],
+        [
+          "Bij welke club hoort het Philips Stadion?",
+          "PSV",
+          "Ajax",
+          "AZ"
+        ],
+        [
+          "Hoe heet een geldige tennisservice die de ontvanger niet raakt?",
+          "Ace",
+          "Volley",
+          "Lob"
+        ],
+        [
+          "Welke afstand heet bij het langebaanschaatsen de sprint van één en een kwart ronde?",
+          "500 meter",
+          "1000 meter",
+          "1500 meter"
+        ]
       ]
     ],
-    "groepen": [
-      [
-        0,
-        4
-      ],
-      [
-        1,
-        7
-      ],
-      [
-        3,
-        10
-      ],
-      [
-        6,
-        14
-      ]
+    "soort": "Gyralune",
+    "bewaar_ids": [
+      "Mosmaat",
+      "Lotuslicht",
+      "Dauwspook",
+      "Schemerfee"
     ]
   }
 }

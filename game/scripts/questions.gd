@@ -3,6 +3,7 @@ extends RefCounted
 static var bank: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/vragen.json"))
 
 static func deck(species: String, level: int, total: int) -> Array:
+	species = bank[species].get("vragenbron",species)
 	var entry: Dictionary = bank[species]
 	var cards := []
 	if entry.has("grenzen"):

@@ -12,6 +12,12 @@ Loop naar een monster en praat ermee. Kies een antwoord met de stick of met W en
 
 Elk gebied heeft vier bewoners. Niveau 1 begint eenvoudig. Bij niveau 4 ontmoet je een glinsterend monster. Voor een gewone vriend beantwoord je drie vragen goed, voor een glinsterende vijf. In het [vragenboek voor ouders](Vragenboek.html) staan de vragen, antwoorden en rekenregels per bewoner. Het spel leest de [vragenbank](game/data/vragen.json) bij het opstarten. Na wijzigingen maak je het boek opnieuw met `python3 tools/vragenboek.py`.
 
+## Build
+
+```
+godot --headless --path game --export-release Web ../docs/index.html
+```
+
 ## Spelen
 
 Open `game/project.godot` in Godot 4.5.1 of 4.7.2 en druk op F5. Houd een losse linker-Joy-Con dwars met de stick links en de SL- en SR-knoppen boven.
@@ -36,6 +42,16 @@ Zijn alle vier de bewoners van een gebied je vriend? Dan krijgt je huisje een va
 Op het Schildpadstrand liggen drie gespikkelde eitjes. Kijk wie eruit komt en loop samen langs de sporen naar zee.
 
 Tussen het huisje en de Watervalplas glinstert iets in het gras. Richt het licht van drie kristallen op de steen in de bron. In de wei langs het pad naar de Sterrenheuvel hangt een vlieger met een kapotte staart. Zoek de drie strikken en ga terug naar de paal. Je eerste meelopende monster mag de vlieger dragen. Bij de paal kun je hem weer inhalen. Elke vondst wordt bewaard.
+
+In het **Echobos**, tussen het huisje en de Vlindertuin, speel je een bel en zweeft je monster naar de trommel om antwoord te geven. Bij elke nieuwe klank komt er een vogel bij. Bij de **Vogelpost** op weg naar de Lavakloof draagt je vriend twee brieven, één per tocht. Volg de gele stenen naar het Zonnehuis of de blauwe naar het Maanhuis. Geef onder het juiste vogelhuisje een seintje en je vriend vliegt naar de hoge brievenbus.
+
+## Emberflame Island
+
+Volg de oostkust van Vareneiland naar de houten steiger. Aan het eind stap je met de praatknop op de veerboot. Je team vaart mee. Op de eilandkaart staat de terugreis aangegeven. Vanaf de steiger zie je de twee vulkanen aan de overkant.
+
+Emberflame heeft vijf soorten: Sylvendra in Emberwood Forest, Voltaris op Fire Ridge, Voltarium in Ignis Grotto, Aurelon aan Sunflame Shores en Gyralune in Flarefell Marsh. Elk gebied heeft één bewoner per niveau. Alleen niveau 4 is shiny. In Emberwood Forest krijg je vragen over eten, op Fire Ridge ontdek je hoe vulkanen werken, in Ignis Grotto verken je de Nederlandse geschiedenis, aan Sunflame Shores oefen je aardrijkskunde en in Flarefell Marsh speel je een sportquiz. In het eilandboek zie je de bewoners en ontdekkingen van je huidige eiland. Open de kaart met Shift en kies de knop onderaan (of druk op de praatknop) om met je team naar de andere aanlegsteiger te reizen. De teller bovenin telt de vrienden van het eiland waar je loopt.
+
+Een nieuw spel in de editor begint aan de steiger op Emberflame. Een nieuw spel in de geëxporteerde versie begint op Vareneiland. Na het laden van een bewaard spel begin je op het laatst bezochte eiland. Om tijdens de ontwikkeling direct met je bestaande team op Emberflame te beginnen, gebruik je `godot --path game -- --emberflame`.
 
 ## In de browser
 

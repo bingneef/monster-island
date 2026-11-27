@@ -103,9 +103,13 @@ func play(id: int) -> void:
 	age = 0
 	stamp(id)
 	if id==1:
-		tune.position = PLACES[id]+Vector3.UP
-		tune.stream = song
-		tune.play()
+		play_melody(PLACES[id]+Vector3.UP)
+
+func play_melody(at: Vector3, pitch := 1.0) -> void:
+	tune.position = at
+	tune.pitch_scale = pitch
+	tune.stream = song
+	tune.play()
 
 func animate(dt: float, t: float) -> void:
 	age += dt

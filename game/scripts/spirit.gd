@@ -9,6 +9,7 @@ var shiny := false
 var level := 1
 var palette := 0
 var nickname := ""
+var save_id := ""
 
 func encounter_name() -> String:
 	return species.shiny_name+" ★" if shiny else species.display_name
@@ -59,6 +60,22 @@ func step(dt: float, player: Vector3, guide: Callable, destination: Vector3, run
 	position = next
 
 func make_shiny() -> void:
+	if palette>=0:
+		apply_shiny_palette()
+	var stars := CPUParticles3D.new()
+	model.add_child(stars)
+	stars.amount = 9
+	stars.lifetime = 1.35
+	stars.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	stars.emission_sphere_radius = 0.89
+	stars.gravity = Vector3(0,0.26,0)
+	stars.scale_amount_min = 0.6
+	var gem := PrismMesh.new()
+	gem.size = Vector3(0.10,0.16,0.07)
+	gem.material = S.mat("ffe896")
+	stars.mesh = gem
+
+func apply_shiny_palette() -> void:
 	var variants := {}
 	for part: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
 		var original := part.get_active_material(0) as StandardMaterial3D
@@ -72,15 +89,3 @@ func make_shiny() -> void:
 			mat.set_shader_parameter("base_color",original.albedo_color)
 			variants[original] = mat
 		part.material_override = variants[original]
-	var stars := CPUParticles3D.new()
-	model.add_child(stars)
-	stars.amount = 9
-	stars.lifetime = 1.35
-	stars.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
-	stars.emission_sphere_radius = 0.89
-	stars.gravity = Vector3(0,0.26,0)
-	stars.scale_amount_min = 0.6
-	var gem := PrismMesh.new()
-	gem.size = Vector3(0.10,0.16,0.07)
-	gem.material = S.mat("ffe896")
-	stars.mesh = gem

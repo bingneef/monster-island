@@ -5,6 +5,7 @@ var blockers: Array[Vector3] = []
 var spray: Array[Node3D] = []
 var static_art: Node3D
 var water_mat := ShaderMaterial.new()
+const Ember = preload("res://scripts/emberflame.gd")
 const POND := Vector2(-37,-14)
 const SHORE := Vector2(75,61)
 const FALL_SHIFT := Vector3(-31,0,-9.2)
@@ -37,7 +38,7 @@ func flat_disc(parent: Node3D, pos: Vector3, rx: float, rz: float, color: String
 
 func island() -> void:
 	formation(static_art,Vector3.ZERO,[Vector3(88,-2.7,73),Vector3(85,-0.88,71),Vector3(80,-0.25,66),Vector3(79,0,65),Vector3(0.01,0,0.01)],["d99968","f5d18b","96c755","86c952"],64,0.7,0.04)
-	var sea := S.box(static_art,Vector3(0,-1.45,0),Vector3(540,0.15,540),"229fbd")
+	var sea := S.box(static_art,Vector3(0,-1.45,0),Vector3(1600,0.15,1600),"229fbd")
 	sea.material_override = water_mat
 	flat_disc(static_art, Vector3(POND.x,0.018,POND.y),4.45,3.34,"e5d996")
 	var pond := flat_disc(static_art,Vector3(POND.x,0.033,POND.y),4.18,3.12,"58d4d2")
@@ -93,6 +94,8 @@ func horizon() -> void:
 		var a := TAU*i/17
 		var island_pos := Vector3(sin(a)*99,-1.7,cos(a)*95)
 		var h := rng.randf_range(2.3,6.2)
+		if absf(island_pos.z)<20 and island_pos.x>0:
+			continue
 		formation(static_art,island_pos,[Vector3(11,0,8),Vector3(6,h*0.64,4),Vector3(2.4,h,1.7),Vector3(0.01,h+0.3,0.01)],["62a8a1","78b7a0","9bc8a1"],9,a,0.14)
 	for i in 24:
 		var a := TAU*i/24
@@ -275,7 +278,13 @@ func wet(p: Vector2) -> bool:
 	return ((p-POND)/Vector2(4.3,3.18)).length()<1
 
 func accessible(p: Vector3, margin := 0.0) -> bool:
-	if (Vector2(p.x,p.z)/(SHORE-Vector2.ONE*margin)).length()>0.99 or ((Vector2(p.x,p.z)-POND)/(Vector2(4.3,3.18)+Vector2.ONE*margin)).length()<1:
+	if Ember.on_ramp(p,margin):
+		return true
+	if Ember.on_ember(p):
+		var local := p-Ember.CENTER
+		if (Vector2(local.x,local.z)/(Ember.RADII-Vector2.ONE*(1.8+margin))).length()>1:
+			return false
+	elif (Vector2(p.x,p.z)/(SHORE-Vector2.ONE*margin)).length()>0.99 or ((Vector2(p.x,p.z)-POND)/(Vector2(4.3,3.18)+Vector2.ONE*margin)).length()<1:
 		return false
 	for block in blockers:
 		if Vector2(p.x-block.x,p.z-block.y).length()<block.z+0.24+margin:
@@ -458,7 +467,7 @@ func trail_to(start: Vector3, end: Vector3) -> void:
 		var p := start.lerp(end,t)+side*sin(t*TAU)*1.5
 		for v in [previous-side,previous+side,p-side,previous+side,p+side,p-side]:
 			mesh.set_normal(Vector3.UP)
-			mesh.add_vertex(v+Vector3.UP*0.045)
+			mesh.add_vertex(v+Vector3.UP*(0.065+(Ember.elevation(v) if Ember.on_ember(v) else 0.0)))
 		previous = p
 	var sand := S.mat("edcf8c").duplicate() as StandardMaterial3D
 	sand.cull_mode = BaseMaterial3D.CULL_DISABLED
@@ -504,6 +513,8 @@ func windmill(at: Vector3) -> void:
 # A broad grassy slope and a flat summit. The mesh and walkers use the same profile.
 const SUMMIT := Vector2(47,32)
 func height_at(p: Vector3) -> float:
+	if Ember.on_ember(p):
+		return Ember.elevation(p)
 	return 6.0*clampf((18.0-SUMMIT.distance_to(Vector2(p.x,p.z)))/13.0,0.0,1.0)
 
 func star_hill() -> void:
